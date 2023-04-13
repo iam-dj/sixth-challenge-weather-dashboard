@@ -1,0 +1,161 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Weather Dashboard</title>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <div class="nav-wrapper grey darken-3">
+          <a href="./index.html" class="brand-logo">Weather Dashboard</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+
+    </br>
+
+      <div class="row" id="left-side">
+        <div class="col s3">
+
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input
+                    placeholder="Enter City"
+                    id="city-name"
+                    type="text"
+                    class="validate"
+                  />
+                  <label for="first_name">CITY</label>
+                  <button
+                    class="btn waves-effect waves-light grey darken-3"
+                    id="submit-button"
+                    type="submit"
+                    name="action"
+                  >
+                    Submit
+                    <i class="material-icons right">send</i>
+                  </button>
+                  
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="col s8" id="right-side">
+
+            <div class="row">
+                <div id="select-city">
+                <h4 id="cityname">Atlanta</h4>
+                <h4 id="theDate"></h4>
+                <p id="city-temp">temprature</p>
+                <p id="city-wind">wind MPH</p>
+                <p id="city-humid">% of humidity</p>
+                </div>
+            </div>
+
+
+          <h5>5-day Forecast:</h5>
+
+            <div class="row" id="weather-card">
+
+              <div class="col s2.4" id="card-1">
+                <div class="card grey darken-3">
+                  <div class="card-content white-text">
+                    <h5 id="time-1">Tomorrow</h5>
+                    <p></p>
+                  </div>
+                  <div class="card-action">
+                    <img id="pic-0" src="./assets/1.png" alt="weather icon">
+                    <p id="temp-1">temp</p>
+                    <p id="wind-1">wind</p>
+                    <p id="humid-1">humid</p>
+                  </div>
+                </div>
+              </div>
+      
+              <div class="col s2.4" id="card-2">
+                <div class="card grey darken-3">
+                  <div class="card-content white-text">
+                    <h5 id="time-2">DATE</h5>
+                    <p></p>
+                  </div>
+                  <div class="card-action">
+                    <img id="pic-1" src="./assets/1.png" alt="weather icon">
+                    <p id="temp-2">temp</p>
+                    <p id="wind-2">wind</p>
+                    <p id="humid-2">humid</p>
+                  </div>
+                </div>
+              </div>
+            
+              <div class="col s2.4" id="card-3">
+                <div class="card grey darken-3">
+                  <div class="card-content white-text">
+                    <h5 id="time-3">DATE</h5>
+                    <p></p>
+                  </div>
+                  <div class="card-action">
+                    <img id="pic-2"  src="./assets/1.png" alt="weather icon">
+                    <p id="temp-3">temp</p>
+                    <p id="wind-3">wind</p>
+                    <p id="humid-3">humid</p>
+                  </div>
+                </div>
+              </div>
+           
+              <div class="col s2.4" id="card-4">
+                <div class="card grey darken-3">
+                  <div class="card-content white-text">
+                    <h5 id="time-4">DATE</h5>
+                    <p></p>
+                  </div>
+                  <div class="card-action">
+                    <img id="pic-3" src="./assets/1.png" alt="weather icon">
+                    <p id="temp-4">temp</p>
+                    <p id="wind-4">wind</p>
+                    <p id="humid-4">humid</p>
+                  </div>
+                </div>
+              </div>
+           
+              <div class="col s2.4" id="card-5">
+                <div class="card grey darken-3">
+                  <div class="card-content white-text">
+                    <h5 id="time-5">DATE</h5>
+                    <p></p>
+                  </div>
+                  <div class="card-action">
+                    <img id="pic-4" src="./assets/1.png" alt="weather icon">
+                    <p id="temp-5">temp</p>
+                    <p id="wind-5">wind</p>
+                    <p id="humid-5">humid</p>
+                  </div>
+                </div>
+              </div>
+
+        </div>
+      </div>
+    </main>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
+      integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
