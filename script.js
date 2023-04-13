@@ -1,7 +1,7 @@
 //setting the cityAPI link so that we can run the first api to get the longitude and latitude
 
 cityAPI =
-  "http://api.openweathermap.org/geo/1.0/direct?q=" +
+  "htts://api.openweathermap.org/geo/1.0/direct?q=" +
   cityName +
   "&limit=1&appid=df9f9d160078f47bbbf19615908c6a7d";
 
@@ -30,7 +30,7 @@ submitBtn.addEventListener("click", function () {
   var cityName = document.getElementById("city-name").value;
 
   var cityAPI =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" +
+    "https://api.openweathermap.org/geo/1.0/direct?q=" +
     cityName +
     "&limit=1&appid=df9f9d160078f47bbbf19615908c6a7d";
 
