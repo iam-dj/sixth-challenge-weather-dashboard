@@ -18,10 +18,7 @@ img {
 }
 
 #border-1 {
-    /* justify-content: space-between; */
     height: 250;
-    /* display: inline-block; */
-    /* margin-right: 70px; */
 }
 
 #classy{
@@ -31,10 +28,6 @@ img {
     padding-right: 5px;
     margin: auto;
 
-}
-
-.grey.darken-3 {
-  text-align: center;
 }
 
 #select-city {

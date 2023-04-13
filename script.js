@@ -1,3 +1,5 @@
+//setting the cityAPI link so that we can run the first api to get the longitude and latitude
+
 cityAPI =
   "http://api.openweathermap.org/geo/1.0/direct?q=" +
   cityName +
@@ -11,10 +13,9 @@ var latitude = "";
 
 var currentTime = dayjs().format("MM/DD/YYYY");
 
-
+//updates the date on each card to the current date
 
 document.getElementById("theDate").textContent = currentTime;
-// document.getElementById("time-1").textContent = dayjs().format("MM/DD/YYYY");
 document.getElementById("time-2").textContent = dayjs().add(2, 'day').format("MM/DD/YYYY");
 document.getElementById("time-3").textContent = dayjs().add(3, 'day').format("MM/DD/YYYY");
 document.getElementById("time-4").textContent = dayjs().add(4, 'day').format("MM/DD/YYYY");
@@ -22,7 +23,7 @@ document.getElementById("time-5").textContent = dayjs().add(5, 'day').format("MM
 
 
 
-
+//this is an eventlistener and on-click it runs the first api that grabs the longitude and latitude of the search text entered
 
 submitBtn.addEventListener("click", function () {
   event.preventDefault();
