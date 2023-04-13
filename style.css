@@ -17,6 +17,12 @@ img {
   height: 8%;
 }
 
+button, input, optgroup, select, textarea{
+    color: white;
+    background-color: #424242;
+    margin: auto;
+}
+
 #border-1 {
     height: 250;
 }

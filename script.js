@@ -1,70 +1,89 @@
-//setting the cityAPI link so that we can run the first api to get the longitude and latitude
-
-cityAPI =
-  "https://api.openweathermap.org/geo/1.0/direct?q=" +
-  cityName +
-  "&limit=1&appid=df9f9d160078f47bbbf19615908c6a7d";
-
+// Define variables
 var cityName = "";
 var submitBtn = document.getElementById("submit-button");
-
 var longitude = "";
 var latitude = "";
-
+var fiveAPI = "";
+var weatherAPI = "";
 var currentTime = dayjs().format("MM/DD/YYYY");
+var historyList = document.getElementById("history-list");
 
-//updates the date on each card to the current date
-
+// Update the date on each card to the current date
 document.getElementById("theDate").textContent = currentTime;
-document.getElementById("time-2").textContent = dayjs().add(2, 'day').format("MM/DD/YYYY");
-document.getElementById("time-3").textContent = dayjs().add(3, 'day').format("MM/DD/YYYY");
-document.getElementById("time-4").textContent = dayjs().add(4, 'day').format("MM/DD/YYYY");
-document.getElementById("time-5").textContent = dayjs().add(5, 'day').format("MM/DD/YYYY");
+document.getElementById("time-2").textContent = dayjs().add(2, "day").format("MM/DD/YYYY");
+document.getElementById("time-3").textContent = dayjs().add(3, "day").format("MM/DD/YYYY");
+document.getElementById("time-4").textContent = dayjs().add(4, "day").format("MM/DD/YYYY");
+document.getElementById("time-5").textContent = dayjs().add(5, "day").format("MM/DD/YYYY");
 
-
-
-//this is an eventlistener and on-click it runs the first api that grabs the longitude and latitude of the search text entered
-
-submitBtn.addEventListener("click", function () {
+// Add an event listener to each li button
+historyList.addEventListener("click", function (event) {
   event.preventDefault();
-  var cityName = document.getElementById("city-name").value;
-
-  var cityAPI =
-    "https://api.openweathermap.org/geo/1.0/direct?q=" +
-    cityName +
-    "&limit=1&appid=df9f9d160078f47bbbf19615908c6a7d";
-
-  var weatherAPI;
-  var latitude;
-  var longitude;
-
-  function getCity() {
-    fetch(cityAPI)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        longitude = data[0].lon;
-        latitude = data[0].lat;
-        fiveAPI =
-          "https://api.openweathermap.org/data/2.5/forecast?lat=" +
-          latitude +
-          "&lon=" +
-          longitude +
-          "&appid=df9f9d160078f47bbbf19615908c6a7d";
-        weatherAPI =
-          "https://api.openweathermap.org/data/2.5/weather?lat=" +
-          latitude +
-          "&lon=" +
-          longitude +
-          "&appid=df9f9d160078f47bbbf19615908c6a7d";
-        return { longitude, latitude };
-      })
-      .then(function () {
-        getWeather();
-        fiveDay();
-      });
+  if (event.target.tagName === "BUTTON") {
+    cityName = event.target.value;
+    getCity();
   }
+});
+
+// Add an event listener to the submit button to get the city information and weather data
+submitBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  cityName = document.getElementById("city-name").value;
+  getCity();
+});
+
+// Get the search history from local storage and parse it as an array
+var searchHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+// Check through the search history and append each item to the list
+searchHistory.forEach(function (item) {
+  var li = document.createElement("button");
+  li.value = item;
+  li.textContent = item;
+  historyList.appendChild(li);
+});
+
+// Add an event listener to the submit button to store the search history
+submitBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+  var searched = document.getElementById("city-name").value;
+  // Add the searched item to the search history
+  searchHistory.push(searched);
+  // Save the search history to local storage
+  localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+  // Append the searched item to the history list
+  var li = document.createElement("button");
+  li.value = searched;
+  li.textContent = searched;
+  historyList.appendChild(li);
+});
+
+// Add an event listener to the clear storage button to clear the search history from local storage
+var clearStorageBtn = document.getElementById("clear-storage");
+clearStorageBtn.addEventListener("click", function () {
+  localStorage.clear();
+});
+
+// Fetch the city information and update the weather data
+function getCity() {
+  var cityAPI = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=1&appid=df9f9d160078f47bbbf19615908c6a7d";
+
+  fetch(cityAPI)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      longitude = data[0].lon;
+      latitude = data[0].lat;
+      fiveAPI = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=df9f9d160078f47bbbf19615908c6a7d";
+      weatherAPI = "https://api.openweathermap.org/data/2.5/weather?lat=" + latitude + "&lon=" + longitude + "&appid=df9f9d160078f47bbbf19615908c6a7d";
+
+      getWeather();
+      fiveDay();
+    });
+}
+
+// Fetch the current weather data and
+
 //run the getWeather function after we've retrieved the city information - then apply so calculations to change the temprature and the wind speed.
   function getWeather() {
     fetch(weatherAPI)
@@ -73,7 +92,7 @@ submitBtn.addEventListener("click", function () {
       })
       .then(function (data) {
         //   console.log(data);
-        //   (298K − 273.15) × 9/5 + 32 = 76.73°F
+        //   (298K − 273.15) × 9/5 + 32 = °F
         var temprature = data.main.temp;
         var newTemp = ((temprature - 273.15) * 9) / 5 + 32;
         var realTeam = Math.trunc(newTemp);
@@ -83,8 +102,8 @@ submitBtn.addEventListener("click", function () {
         var humidity = data.main.humidity;
         var cityCalled = data.name;
         document.getElementById("city-temp").textContent =
-          realTeam + "° faranheit";
-        document.getElementById("city-wind").textContent = realWind + " MPH";
+          realTeam + "° Fahrenheit";
+        document.getElementById("city-wind").textContent = realWind + " MPH wind(s)";
 
         document.getElementById("cityname").textContent = cityCalled;
 
@@ -125,9 +144,9 @@ submitBtn.addEventListener("click", function () {
           var realWind = Math.trunc(wind);
           var humidity = forecast.list[i].main.humidity;
           document.getElementById("temp-" + [i]).textContent =
-            realTeam + "° faranheit";
+            realTeam + "° Fahrenheit";
           document.getElementById("wind-" + [i]).textContent =
-            realWind + " MPH";
+            realWind + " MPH wind(s)";
           document.getElementById("humid-" + [i]).textContent =
             humidity + "% of humidity";
 
@@ -149,32 +168,3 @@ submitBtn.addEventListener("click", function () {
         }
       });
   }
-  getCity();
-});
-
-// Get the search history from local storage and parse it as an array
-var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
-
-// Get the history list element
-var historyList = document.getElementById('history-list');
-
-// Iterate over the search history and append each item to the list
-searchHistory.forEach(function(item) {
-  var li = document.createElement('li');
-  li.textContent = item;
-  historyList.appendChild(li);
-});
-
-// Add an event listener to the submit button to store the search history
-submitBtn.addEventListener("click", function(event) {
-  event.preventDefault();
-  var searched = document.getElementById("city-name").value;
-  // Add the searched item to the search history
-  searchHistory.push(searched);
-  // Save the search history to local storage
-  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
-  // Append the searched item to the history list
-  var li = document.createElement('li');
-  li.textContent = searched;
-  historyList.appendChild(li);
-});
