@@ -65,7 +65,7 @@ submitBtn.addEventListener("click", function () {
         fiveDay();
       });
   }
-
+//run the getWeather function after we've retrieved the city information - then apply so calculations to change the temprature and the wind speed.
   function getWeather() {
     fetch(weatherAPI)
       .then(function (response) {
@@ -90,7 +90,7 @@ submitBtn.addEventListener("click", function () {
 
         document.getElementById("city-humid").textContent =
           humidity + "% of humidity";
-
+//this if else loop changes the pictures of the cards depending on the weather
           if (data.weather[0].main === "Clear") {
             var image = document.getElementById("border-1");
             image.setAttribute("src", "./assets/" + 4 + ".png");
@@ -112,13 +112,10 @@ submitBtn.addEventListener("click", function () {
         return response.json();
       })
       .then(function (data) {
-        // console.log(data.main.temp);
         var forecast = [];
         forecast = data;
-        // console.log(forecast);
-        // console.log(forecast.list[1].main.temp);
-        // var theTime = dayjs().format("MM/DD/YYYY");
-
+      
+//this loop gets the element by the id and changes the text to correct weather parameters
         for (let i = 1; i < 6; i++) {
           var temprature = forecast.list[i].main.temp;
           var newTemp = ((temprature - 273.15) * 9) / 5 + 32;
@@ -138,7 +135,6 @@ submitBtn.addEventListener("click", function () {
             
             var image = document.getElementById("pic-" + [i]);
 
-          // console.log(forecast.list[i].weather[0].main);
           if (forecast.list[i].weather[0].main === "Clear") {
             image.setAttribute("src", "./assets/" + 4 + ".png");
           } else if (forecast.list[i].weather[0].main === "Clouds") {
