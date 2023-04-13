@@ -48,7 +48,10 @@
                     Submit
                     <i class="material-icons right">send</i>
                   </button>
-                  
+                  <ul id="history-list"> 
+                  </br>
+                    <span id="classy">Recently Searched</span>
+                  </ul>
                 </div>
               </div>
             </form>
@@ -59,16 +62,20 @@
 
             <div class="row">
                 <div id="select-city">
-                <h4 id="cityname">Atlanta</h4>
-                <h4 id="theDate"></h4>
-                <p id="city-temp">temprature</p>
-                <p id="city-wind">wind MPH</p>
-                <p id="city-humid">% of humidity</p>
+                  <div class="col s8">
+                    <h4 id="cityname">City Name</h4>
+                    <h4 id="theDate"></h4>
+                    <p id="city-temp">temprature</p>
+                    <p id="city-wind">wind MPH</p>
+                    <p id="city-humid">% of humidity</p>
+                  </div>
+                  <div class="col s4">
+                    <img id="border-1" src="./assets/1.png" alt="weather icon" >
+                  </div>
                 </div>
-            </div>
+              </div>
 
-
-          <h5>5-day Forecast:</h5>
+              <h5 id="forecast">5-day Forecast:</h5>
 
             <div class="row" id="weather-card">
 

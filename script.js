@@ -20,27 +20,13 @@ document.getElementById("time-3").textContent = dayjs().add(3, 'day').format("MM
 document.getElementById("time-4").textContent = dayjs().add(4, 'day').format("MM/DD/YYYY");
 document.getElementById("time-5").textContent = dayjs().add(5, 'day').format("MM/DD/YYYY");
 
-function storeValue(event) {
-    console.log(event.target);
-    var searched = event.target.value();
-    localStorage.setItem("searched", searched);
-    return searched;
-  }
-  console.log(localStorage);
-  submitBtn.addEventListener("click", storeValue);
+
+
+
 
 submitBtn.addEventListener("click", function () {
   event.preventDefault();
   var cityName = document.getElementById("city-name").value;
-
-//   var searched = document.createElement("button");
-//   searched.textContent = cityName;
-//   var container = document.createElement("div");
-//   container.append(searched);
-
-//   localStorage.setItem('searched',cityName)
-
-
 
   var cityAPI =
     "http://api.openweathermap.org/geo/1.0/direct?q=" +
@@ -103,6 +89,20 @@ submitBtn.addEventListener("click", function () {
 
         document.getElementById("city-humid").textContent =
           humidity + "% of humidity";
+
+          if (data.weather[0].main === "Clear") {
+            var image = document.getElementById("border-1");
+            image.setAttribute("src", "./assets/" + 4 + ".png");
+          } else if (data.weather[0].main === "Clouds") {
+            var image = document.getElementById("border-1");
+            image.setAttribute("src", "./assets/" + 1 + ".png");
+          } else if (data.weather[0].main === "Rain") {
+            var image = document.getElementById("border-1");
+            image.setAttribute("src", "./assets/" + 3 + ".png");
+          } else if (data.weather[0].main === "Sunny") {
+            var image = document.getElementById("border-1");
+            image.setAttribute("src", "./assets/" + 2 + ".png");
+          }
       });
   }
   function fiveDay() {
@@ -135,23 +135,49 @@ submitBtn.addEventListener("click", function () {
 
 
             
+            var image = document.getElementById("pic-" + [i]);
 
           // console.log(forecast.list[i].weather[0].main);
           if (forecast.list[i].weather[0].main === "Clear") {
-            var image = document.getElementById("pic-" + [i]);
             image.setAttribute("src", "./assets/" + 4 + ".png");
           } else if (forecast.list[i].weather[0].main === "Clouds") {
-            var image = document.getElementById("pic-" + [i]);
             image.setAttribute("src", "./assets/" + 1 + ".png");
           } else if (forecast.list[i].weather[0].main === "Rain") {
-            var image = document.getElementById("pic-" + [i]);
             image.setAttribute("src", "./assets/" + 3 + ".png");
           } else if (forecast.list[i].weather[0].main === "Sunny") {
-            var image = document.getElementById("pic-" + [i]);
             image.setAttribute("src", "./assets/" + 2 + ".png");
+          } else {
+            image.setAttribute("src", "./assets/" + 5 + ".png");
           }
         }
       });
   }
   getCity();
+});
+
+// Get the search history from local storage and parse it as an array
+var searchHistory = JSON.parse(localStorage.getItem('searchHistory')) || [];
+
+// Get the history list element
+var historyList = document.getElementById('history-list');
+
+// Iterate over the search history and append each item to the list
+searchHistory.forEach(function(item) {
+  var li = document.createElement('li');
+  li.textContent = item;
+  historyList.appendChild(li);
+});
+
+// Add an event listener to the submit button to store the search history
+submitBtn.addEventListener("click", function(event) {
+  event.preventDefault();
+  var searched = document.getElementById("city-name").value;
+  // Add the searched item to the search history
+  searchHistory.push(searched);
+  // Save the search history to local storage
+  localStorage.setItem('searchHistory', JSON.stringify(searchHistory));
+  // Append the searched item to the history list
+  var li = document.createElement('li');
+  li.textContent = searched;
+  historyList.appendChild(li);
 });
